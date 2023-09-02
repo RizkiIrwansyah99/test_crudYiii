@@ -2,10 +2,13 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use web\css\site;
 
 /** @var yii\web\View $this */
 /** @var app\models\Profil $model */
 /** @var yii\widgets\ActiveForm $form */
+
+$this->registerCssFile(Yii::getAlias('@web/css/style.css'));
 ?>
 
 <div class="profil-form">

@@ -30,6 +30,7 @@ class Profil extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'email_address', 'phone_number', 'address'], 'required'],
+            ['email_address', 'email', 'message' => 'Format email tidak valid.'],
             [['name', 'email_address'], 'string', 'max' => 50],
             [['phone_number'], 'string', 'max' => 20],
             [['address'], 'string', 'max' => 100],

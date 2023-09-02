@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use Yii;
 use app\models\Profil;
 use app\models\ProfilSearch;
 use yii\web\Controller;
@@ -38,12 +39,14 @@ class ProfilController extends Controller
      */
     public function actionIndex()
     {
+        $model = new Profil();
         $searchModel = new ProfilSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'model' => $model
         ]);
     }
 
@@ -70,8 +73,12 @@ class ProfilController extends Controller
         $model = new Profil();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load($this->request->post()) && $model->validate()) {
+                // Data sesuai dengan aturan validasi
+                if ($model->save()) {
+                    Yii::$app->session->setFlash('success', 'Data berhasil disimpan.');
+                    return $this->redirect(['index']);
+                }
             }
         } else {
             $model->loadDefaultValues();
