@@ -73,7 +73,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'header' => 'Action',
                 'headerOptions' => ['style' => 'text-align:center;'],
                 'contentOptions' => ['style' => 'text-align:center;'],
-                // 'contentOptions' => ['style' => 'text-align:center; padding: 15px;'],
 
                 'urlCreator' => function ($action, Profil $model, $key, $index, $column) {
 

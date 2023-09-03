@@ -25,7 +25,7 @@ class ProfilController extends Controller
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
-                        'delete' => ['POST'],
+                        'delete' => ['POST', 'GET'], // Mengizinkan akses DELETE dan GET
                     ],
                 ],
             ]
@@ -101,7 +101,10 @@ class ProfilController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            // Set pesan sukses
+            Yii::$app->session->setFlash('success', 'Profil berhasil diupdate.');
+
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [
@@ -116,12 +119,22 @@ class ProfilController extends Controller
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
+    // public function actionDelete($id)
+    // {
+    //     $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
-    }
+    //     return $this->redirect(['index']);
+    // }
+
+    public function actionDelete($id)
+{
+    $this->findModel($id)->delete();
+
+    Yii::$app->session->setFlash('success', 'Data berhasil dihapus.');
+
+    return $this->redirect(['index']);
+}
+
 
     /**
      * Finds the Profil model based on its primary key value.
